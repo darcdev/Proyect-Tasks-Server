@@ -1,5 +1,7 @@
 const express = require("express");
 const conectarDB = require("./config/db");
+const usuarios = require("./routes/usuarios");
+
 // crear el servidor
 const app = express();
 
@@ -7,14 +9,14 @@ const app = express();
 
 conectarDB();
 
+// Habilitar express.json
+app.use(express.json({ extended: true }));
+
 // puerto de la app
 const PORT = process.env.PORT || 4000;
 
-// definir la pagina principal
-
-app.get("/", (req, res) => {
-  res.send("hola mundo");
-});
+// importar rutas
+app.use("/api/usuarios", usuarios);
 
 app.listen(PORT, () => {
   console.log("el servidor esta funcionando en el puerto", PORT);
