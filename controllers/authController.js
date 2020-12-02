@@ -3,7 +3,7 @@ const Usuario = require("../models/Usuario");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
-exports.crearUsuario = async (req, res) => {
+exports.autenticarUsuario = async (req, res) => {
   //revisar si hay errores
   const errores = validationResult(req);
 
@@ -17,18 +17,19 @@ exports.crearUsuario = async (req, res) => {
     //Revisar que el usuario registrado sea unico
     let usuario = await Usuario.findOne({ email });
 
-    if (usuario) {
+    if (!usuario) {
       return res.status(400).json({
-        msg: "El usuario ya existe",
+        msg: "El usuario no existe",
       });
     }
-    //crea nuevo usuario
-    usuario = new Usuario(req.body);
-    // Hashear el password
-    const salt = await bcrypt.genSalt(10);
-    usuario.password = await bcrypt.hash(password, salt);
 
-    await usuario.save();
+    const passCorrecto = await bcrypt.compare(password, usuario.password);
+
+    if (!passCorrecto) {
+      return res.status(400).json({
+        msg: "Datos Incorrectos",
+      });
+    }
 
     // Crear y firmar el JWT
     const payload = {
@@ -51,13 +52,10 @@ exports.crearUsuario = async (req, res) => {
         return res.json({ token });
       }
     );
-    return res.send({
-      msg: "usuario creado correctamente",
-    });
   } catch (error) {
     console.log(error);
     res.status(400).json({
-      msg: "Hubo un error al crear usuario",
+      msg: "Hubo un error al iniciar sesion",
     });
   }
 };

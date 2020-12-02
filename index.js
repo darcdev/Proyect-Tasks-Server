@@ -1,6 +1,7 @@
 const express = require("express");
 const conectarDB = require("./config/db");
 const usuarios = require("./routes/usuarios");
+const authUsuarios = require("./routes/authUsuarios");
 
 // crear el servidor
 const app = express();
@@ -17,6 +18,7 @@ const PORT = process.env.PORT || 4000;
 
 // importar rutas
 app.use("/api/usuarios", usuarios);
+app.use("/api/auth", authUsuarios);
 
 app.listen(PORT, () => {
   console.log("el servidor esta funcionando en el puerto", PORT);
