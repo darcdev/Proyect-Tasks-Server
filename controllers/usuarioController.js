@@ -28,6 +28,8 @@ exports.crearUsuario = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     usuario.password = await bcrypt.hash(password, salt);
 
+    console.log(usuario);
+
     await usuario.save();
 
     // Crear y firmar el JWT
