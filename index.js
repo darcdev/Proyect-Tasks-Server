@@ -3,6 +3,7 @@ const conectarDB = require("./config/db");
 const usuarios = require("./routes/usuarios");
 const authUsuarios = require("./routes/authUsuarios");
 const proyectos = require("./routes/proyectos");
+const tareas = require("./routes/tareas");
 
 // crear el servidor
 const app = express();
@@ -21,6 +22,7 @@ const PORT = process.env.PORT || 4000;
 app.use("/api/usuarios", usuarios);
 app.use("/api/auth", authUsuarios);
 app.use("/api/proyectos", proyectos);
+app.use("/api/tareas", tareas);
 
 app.listen(PORT, () => {
   console.log("el servidor esta funcionando en el puerto", PORT);
