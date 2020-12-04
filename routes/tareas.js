@@ -1,11 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const { crearTarea, obtenerTareas } = require("../controllers/tareaController");
+const {
+  crearTarea,
+  obtenerTareas,
+  actualizarTarea,
+} = require("../controllers/tareaController");
 const auth = require("../middlewares/auth");
 const { check } = require("express-validator");
 
 // crear tarea
-
 router.post(
   "/",
   auth,
@@ -15,6 +18,11 @@ router.post(
   ],
   crearTarea
 );
-
+//obtener tareas
 router.get("/", auth, obtenerTareas);
+
+// actualizar tarea
+
+router.put("/:id", auth, actualizarTarea);
+
 module.exports = router;
