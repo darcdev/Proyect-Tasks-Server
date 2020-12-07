@@ -4,6 +4,7 @@ const {
   crearTarea,
   obtenerTareas,
   actualizarTarea,
+  eliminarTarea,
 } = require("../controllers/tareaController");
 const auth = require("../middlewares/auth");
 const { check } = require("express-validator");
@@ -25,4 +26,7 @@ router.get("/", auth, obtenerTareas);
 
 router.put("/:id", auth, actualizarTarea);
 
+// Eliminar una tarea
+
+router.delete("/:id", auth, eliminarTarea);
 module.exports = router;

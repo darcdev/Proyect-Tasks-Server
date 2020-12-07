@@ -3,8 +3,8 @@ const express = require("express");
 const router = express.Router();
 const { crearUsuario } = require("../controllers/usuarioController");
 const { check } = require("express-validator");
-// Crea un usuario
 
+// Crea un usuario
 router.post(
   "/",
   [

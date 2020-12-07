@@ -23,12 +23,11 @@ exports.crearUsuario = async (req, res) => {
       });
     }
     //crea nuevo usuario
+    console.log(req.body);
     usuario = new Usuario(req.body);
     // Hashear el password
     const salt = await bcrypt.genSalt(10);
     usuario.password = await bcrypt.hash(password, salt);
-
-    console.log(usuario);
 
     await usuario.save();
 
@@ -53,9 +52,6 @@ exports.crearUsuario = async (req, res) => {
         return res.json({ token });
       }
     );
-    return res.send({
-      msg: "usuario creado correctamente",
-    });
   } catch (error) {
     console.log(error);
     res.status(400).json({

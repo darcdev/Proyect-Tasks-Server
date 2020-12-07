@@ -39,7 +39,6 @@ exports.actualizarProyecto = async (req, res) => {
   if (!errores.isEmpty()) {
     return res.status(400).json({ errores: errores.array() });
   }
-
   // extraer la informacion del proyecto
   const { nombre } = req.body;
   const nuevoProyecto = {};
@@ -47,10 +46,8 @@ exports.actualizarProyecto = async (req, res) => {
   if (nombre) {
     nuevoProyecto.nombre = nombre;
   }
-
   try {
     // Revisar ID
-
     let proyecto = await Proyecto.findById(req.params.id);
     // Si el proyecto existe o no
 
@@ -74,7 +71,6 @@ exports.actualizarProyecto = async (req, res) => {
     res.status(500).send("Error en el servidor");
   }
 };
-
 // Elimina un proyecto por su id
 
 exports.eliminarProyecto = async (req, res) => {
@@ -85,10 +81,8 @@ exports.eliminarProyecto = async (req, res) => {
   }
   try {
     // Revisar ID
-
     let proyecto = await Proyecto.findById(req.params.id);
     // Si el proyecto existe o no
-
     if (!proyecto) {
       return res.status(404).json({ msg: "Proyecto no encontrado" });
     }

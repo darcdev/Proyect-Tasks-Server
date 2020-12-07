@@ -4,13 +4,15 @@ const usuarios = require("./routes/usuarios");
 const authUsuarios = require("./routes/authUsuarios");
 const proyectos = require("./routes/proyectos");
 const tareas = require("./routes/tareas");
-
+const cors = require("cors");
 // crear el servidor
 const app = express();
 
 //conectar a base de datos
-
 conectarDB();
+
+//habilitar cors
+app.use(cors());
 
 // Habilitar express.json
 app.use(express.json({ extended: true }));
