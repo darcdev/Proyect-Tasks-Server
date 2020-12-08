@@ -1,19 +1,17 @@
 // Rutas para autenticar usuarios
 const express = require("express");
 const router = express.Router();
-const { autenticarUsuario } = require("../controllers/authController");
-const { check } = require("express-validator");
+const {
+  autenticarUsuario,
+  usuarioAutenticado,
+} = require("../controllers/authController");
+const auth = require("../middlewares/auth");
 
+//Login
 // autenticar usuarios
-router.post(
-  "/",
-  [
-    check("email", "Agrega un email valido").isEmail(),
-    check("password", "El password debe ser minimo de 6 caracters").isLength({
-      min: 6,
-    }),
-  ],
-  autenticarUsuario
-);
+router.post("/", autenticarUsuario);
+
+//obtiene el usuario autenticado
+router.get("/", auth, usuarioAutenticado);
 
 module.exports = router;

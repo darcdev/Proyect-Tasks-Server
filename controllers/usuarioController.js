@@ -42,13 +42,12 @@ exports.crearUsuario = async (req, res) => {
       payload,
       process.env.TOKEN_SECRET,
       {
-        expiresIn: 3600,
+        expiresIn: Number(process.env.EXPIRATION_TIME_TOKEN),
       },
       (error, token) => {
         if (error) throw error;
 
         //Mensaje de confirmacion
-
         return res.json({ token });
       }
     );
